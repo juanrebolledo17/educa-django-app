@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}My Courses{% endblock %}
+{% block title %}| My Courses{% endblock %}
 
 {% block content %}
-<h1>My courses</h1>
-<div class="module">
-    {% for course in object_list %}
-        <div class="course-info">
-            <h3>{{ course.title }}</h3>
-            <p>
-                <a href="{% url 'courses:course_edit' course.id %}">Edit</a>
-                <a href="{% url 'courses:course_delete' course.id %}">Delete</a>
-            </p>
-        </div>
-    {% empty %}
-        <p>You haven't created any courses yet.</p>
-    {% endfor %}
-    <p>
-        <a href="{% url 'courses:course_create' %}" class="button">Create new course</a>
-    </p>
+<div class="w-full p-4">
+    <div class="flex -mx-3">
+        {% for course in object_list %}
+            <div class="flex-1 max-w-sm rounded overflow-hidden shadow-lg mb-3 mx-3">
+                <div class="px-6 py-4">
+                    <h3 class="font-bold text-xl mb-2">{{ course.title }}</h3>
+                    <p>
+                        <a href="{% url 'courses:course_edit' course.id %}" class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline mr-3">Edit</a>
+                        <a href="{% url 'courses:course_delete' course.id %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline">Delete</a>
+                    </p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="flex-1 max-w-sm rounded overflow-hidden shadow-lg mb-3">
+                <p>You haven't created any courses yet.</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pl-0 py-3">
+        <a href="{% url 'courses:course_create' %}" class="bg-transparent hover:bg-teal-500 text-teal-700 font-semibold hover:text-white py-2 px-4 border border-teal-500 hover:border-transparent rounded">Create new course</a>
+    </div>
 </div>
 {% endblock %}

@@ -2,13 +2,35 @@
 
 {% block title %}
     {% if object %}
-        Edit course "{{ object.title }}"
+        | Edit course "{{ object.title }}"
     {% else %}
-        Create a new course
+        | Create a new course
     {% endif %}
 {% endblock %}
 
 {% block content %}
+<div class="w-full p-4">
+    <div class="max-w-md rounded overflow-hidden shadow-lg p-4">
+        <div class="py-2">
+            <h2>Course Information</h2>
+        </div>
+        <form action="." method="post" class="px-8 pt-6 pb-8 mb-4">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_subject" class="block text-gray-700 text-sm font-bold mb-2">
+                    Subject
+                </label>
+                {{ form.subject }}
+            </div>
+            <div class="mb-4">
+                <label for="id_title" class="block text-gray-700 text-sm font-bold mb-2">
+                    Title
+                </label>
+                <input id="id_title" name="title" maxlength="200" type="text" value="{{ form.title.value }}" class="" required />
+            </div>
+        </form>
+    </div>
+</div>
 <h1>
     {% if object %}
         Edit course "{{ object.title }}"
@@ -20,7 +42,7 @@
     <h2>Course Information</h2>
     <form action="." method="post">
         {{ form.as_p }}
-        {% csrf_token %}
+        
         <p>
             <input type="submit" value="Save course">
         </p>
